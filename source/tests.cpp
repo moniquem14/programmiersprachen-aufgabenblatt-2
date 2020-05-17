@@ -8,15 +8,15 @@
 //#include "color.hpp"
 
 
-/* ---------------------
- *    V E C T O R S
- * --------------------*/
+/* 
+     V E C T O R S
+ */
 
  // testing initialization of instances
 TEST_CASE("describe_vec2", "[vec2]") {
     const Vec2 a;
     const Vec2 b{ 5.1f, -9.3f };
-    const Vec2 c(-1.0f, 2.0f);
+    const Vec2 c{ -1.0f, 2.0f };
 
     REQUIRE(a.x == Approx(0.0f));
     REQUIRE(a.y == Approx(0.0f));
@@ -99,9 +99,9 @@ TEST_CASE("describe_division_vec2", "[division vec2]") {
 
 }
 
-/* ---------------------
- *    M A T R I C E S
- * --------------------*/
+/* 
+     M A T R I C E S
+*/
 
  // testing initialization of instances
 TEST_CASE("describe_mat2", "[mat2]") {
@@ -157,9 +157,9 @@ TEST_CASE("describe_determinant", "[determinant mat2]") {
 }
 
 
-/* -------------------------------
- *   F R E E  F U N C T I O N S
- * ------------------------------*/
+/* 
+    F R E E  F U N C T I O N S
+*/
 
  // testing operator* of mat2
 TEST_CASE("describe_operator*", "[free multiplication mat2]") {
