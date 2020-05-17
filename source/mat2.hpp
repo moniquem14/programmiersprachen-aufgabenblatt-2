@@ -1,19 +1,9 @@
 #ifndef MAT2_HPP
 #define MAT2_HPP
 #include "vec2.hpp"
-#include <array>
 
 // mat2 definition
 struct Mat2 {
-
-    // matrix layout:
-    //   e_00   e_10
-    //   e_01   e_11
-
-    // default constructor
-    Mat2();
-
-    Mat2(float e1, float e2, float e3, float e4);
 
     // member variables
     float e_00 = 1.0f;
