@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_RUNNER
+define CATCH_CONFIG_RUNNER
 #include <catch.hpp>
 #include <cmath>
 #include "vec2.hpp"
@@ -8,12 +8,12 @@
 //#include "color.hpp"
 
 
-/*
-     V E C T O R S
-*/
+/* ---------------------
+ *    V E C T O R S
+ * --------------------*/
 
  // testing initialization of instances
-TEST_CASE("describe_vec2", "[vec2]") {
+    TEST_CASE("describe_vec2", "[vec2]") {
     Vec2 a;
     Vec2 b{ 5.1f, -9.3f };
     Vec2 c(-1.0f, 2.0f);
@@ -28,7 +28,7 @@ TEST_CASE("describe_vec2", "[vec2]") {
 }
 
 // testing addition of vec2
-TEST_CASE("describe_addition_vec2", "[add]") {
+TEST_CASE("describe_addition_vec2", "[addition vec2]") {
     Vec2 v1;
     Vec2 v2{ 4.3f, 1.5f };
     Vec2 v3{ 3.0f, -2.7f };
@@ -44,7 +44,7 @@ TEST_CASE("describe_addition_vec2", "[add]") {
 }
 
 // testing multiplication of vec2
-TEST_CASE("describe_multiplication_vec2", "[multiply]") {
+TEST_CASE("describe_multiplication_vec2", "[multiplication vec2]") {
     Vec2 v1;
     Vec2 v2{ 2.6f, 4.0f };
     Vec2 v3{ -2.8f, 0.3f };
@@ -64,7 +64,7 @@ TEST_CASE("describe_multiplication_vec2", "[multiply]") {
 }
 
 // testing substraction of vec2
-TEST_CASE("describe_substraction_vec2", "[substract]") {
+TEST_CASE("describe_substraction_vec2", "[subtraction vec2]") {
     Vec2 v1{ 3.0f, 1.3f };
     Vec2 v2;
     Vec2 v3{ 6.3f, -4.7f };
@@ -80,7 +80,7 @@ TEST_CASE("describe_substraction_vec2", "[substract]") {
 }
 
 // testing division of vec2
-TEST_CASE("describe_division_vec2", "[divide]") {
+TEST_CASE("describe_division_vec2", "[division vec2]") {
     Vec2 v1{ 8.0f, 4.6f };
     Vec2 v2{ 2.0f, 1.3f };
     Vec2 v3{ 1.1f, -3.3f };
@@ -99,9 +99,9 @@ TEST_CASE("describe_division_vec2", "[divide]") {
 
 }
 
-/*
-     M A T R I C E S
- */
+/* ---------------------
+ *    M A T R I C E S
+ * --------------------*/
 
  // testing initialization of instances
 TEST_CASE("describe_mat2", "[mat2]") {
@@ -120,7 +120,7 @@ TEST_CASE("describe_mat2", "[mat2]") {
 }
 
 // testing operator*= of mat2
-TEST_CASE("describe_operator*=", "[mat2]") {
+TEST_CASE("describe_operator*=", "[multiplication mat2]") {
     Mat2 m1;
     Mat2 m2{ 2.5f, -4.0f, 1.2f, 3.0f };
     Mat2 m3{ 0.0f, 0.0f, -1.0f, 0.2f };
@@ -144,8 +144,25 @@ TEST_CASE("describe_operator*=", "[mat2]") {
 
 }
 
-// testing free operator* of mat2
-TEST_CASE("describe_operator*", "[mat2]") {
+// testing determinant of mat2
+TEST_CASE("describe_determinant", "[determinant mat2]") {
+    Mat2 m1;
+    Mat2 m2{ 2.0f, 6.0f, 8.0f, 3.0f };
+    Mat2 m3{ 4.0f, 6.3f, 0.4f, 2.0f };
+
+    REQUIRE(m1.det() == Approx(1.0f));
+    REQUIRE(m2.det() == Approx(-42.0f));
+    REQUIRE(m3.det() == Approx(5.48f));
+
+}
+
+
+/* -------------------------------
+ *   F R E E  F U N C T I O N S
+ * ------------------------------*/
+
+ // testing operator* of mat2
+TEST_CASE("describe_operator*", "[free multiplication mat2]") {
     Mat2 m1;
     Mat2 m2{ 2.5f, -4.0f, 1.2f, 3.0f };
     Mat2 m3{ 0.0f, 0.0f, -1.0f, 0.2f };
@@ -169,12 +186,74 @@ TEST_CASE("describe_operator*", "[mat2]") {
 
 }
 
+// testing operator* of matrix and vector and vice versa
+TEST_CASE("describe_free_operator*_mat_vec", "[multiplication mat2 vec2]") {
+    Mat2 m1;
+    Vec2 v1;
+    Mat2 m2{ 2.5f, -4.0f, 1.2f, 3.0f };
+    Vec2 v2{ 5.1f, -9.3f };
 
+    v1 = m1 * v1;
+    v2 = v2 * m2;
 
+    REQUIRE(v1.x == Approx(0.0f));
+    REQUIRE(v1.y == Approx(0.0f));
+    REQUIRE(v2.x == Approx(49.95f));
+    REQUIRE(v2.y == Approx(-21.78f));
 
+}
+
+// testing inverse of mat2
+TEST_CASE("describe_inverse", "[inverse mat2]") {
+    Mat2 m0;
+    Mat2 m1{ 3.0f, 5.0f, 3.5f, 6.0f };
+    Mat2 m2 = inverse(m0);
+    Mat2 m3 = inverse(m1);
+
+    REQUIRE(m2.e_00 == Approx(1.0f));
+    REQUIRE(m2.e_01 == Approx(0.0f));
+    REQUIRE(m2.e_10 == Approx(0.0f));
+    REQUIRE(m2.e_11 == Approx(1.0f));
+    REQUIRE(m3.e_00 == Approx(12.0f));
+    REQUIRE(m3.e_01 == Approx(-10.0f));
+    REQUIRE(m3.e_10 == Approx(-7.0f));
+    REQUIRE(m3.e_11 == Approx(6.0f));
+}
+
+// testing transpose of mat2
+TEST_CASE("describe_transpose", "[transpose mat2]") {
+    Mat2 m0;
+    Mat2 m1{ 1.0f, 2.0f, 3.0f, 4.0f };
+    Mat2 m2 = transpose(m0);
+    Mat2 m3 = transpose(m1);
+
+    REQUIRE(m2.e_00 == Approx(1.0f));
+    REQUIRE(m2.e_01 == Approx(0.0f));
+    REQUIRE(m2.e_10 == Approx(0.0f));
+    REQUIRE(m2.e_11 == Approx(1.0f));
+    REQUIRE(m3.e_00 == Approx(1.0f));
+    REQUIRE(m3.e_01 == Approx(3.0f));
+    REQUIRE(m3.e_10 == Approx(2.0f));
+    REQUIRE(m3.e_11 == Approx(4.0f));
+
+}
+
+// testing rotation of mat2
+TEST_CASE("describe_rotate", "[rotate mat2]") {
+    Mat2 m1 = make_rotation_mat2(90.0f);
+    Mat2 m2 = make_rotation_mat2(45.0f);
+
+    REQUIRE(m1.e_00 == Approx(-0.44807f));
+    REQUIRE(m1.e_01 == Approx(-0.894f));
+    REQUIRE(m1.e_10 == Approx(0.894f));
+    REQUIRE(m1.e_11 == Approx(-0.44807f));
+    REQUIRE(m2.e_00 == Approx(0.52532f));
+    REQUIRE(m2.e_01 == Approx(-0.8509f));
+    REQUIRE(m2.e_10 == Approx(0.8509f));
+    REQUIRE(m2.e_11 == Approx(0.52532f));
+}
 
 int main(int argc, char* argv[]) {
     return Catch::Session().run(argc, argv);
-
 
 }
