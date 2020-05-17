@@ -1,4 +1,4 @@
-define CATCH_CONFIG_RUNNER
+#define CATCH_CONFIG_RUNNER
 #include <catch.hpp>
 #include <cmath>
 #include "vec2.hpp"
@@ -13,7 +13,7 @@ define CATCH_CONFIG_RUNNER
  * --------------------*/
 
  // testing initialization of instances
-    TEST_CASE("describe_vec2", "[vec2]") {
+ TEST_CASE("describe_vec2", "[vec2]") {
     Vec2 a;
     Vec2 b{ 5.1f, -9.3f };
     Vec2 c(-1.0f, 2.0f);
