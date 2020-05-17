@@ -4,13 +4,9 @@
 // Vec2 data type definition
 struct Vec2 {
 
-    Vec2();
-
-    Vec2(float x, float y);
-
     // member variables
-    float x;
-    float y;
+    float x = 0.0f;
+    float y = 0.0f;
 
     // Vec2 operators declaration
     Vec2& operator+=(Vec2 const& v);

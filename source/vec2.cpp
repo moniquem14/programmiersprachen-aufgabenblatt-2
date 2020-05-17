@@ -1,15 +1,5 @@
 #include "vec2.hpp"
 
-//default constructor
-Vec2::Vec2() :
-    x{ 0.0f },
-    y{ 0.0f } {}
-
-// var constructor
-Vec2::Vec2(float x, float y) :
-    x{ x },
-    y{ y } {}
-
 // definition addition for Vec2
 Vec2& Vec2::operator+=(Vec2 const& v) {
     x += v.x;
