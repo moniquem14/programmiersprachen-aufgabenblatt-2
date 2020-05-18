@@ -16,6 +16,7 @@ public:
 private:
     Vec2 max_;
     Vec2 min_;
+   
 
 };
 

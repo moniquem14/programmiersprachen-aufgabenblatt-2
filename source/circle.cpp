@@ -1,4 +1,5 @@
 #include <cmath>
+#define _USE_MATH_DEFINES
 #include "circle.hpp"
 #include "vec2.hpp"
 #include "mat2.hpp"
