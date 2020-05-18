@@ -5,7 +5,7 @@ add_executable(example
   example.cpp
   vec2.cpp
   mat2.cpp
-  #circle.cpp
+  circle.cpp
   #rectangle.cpp
   )
 target_link_libraries(example
@@ -22,7 +22,7 @@ add_executable(tests
   tests.cpp
   vec2.cpp
   mat2.cpp
-  #circle.cpp
+  circle.cpp
   #rectangle.cpp
   window.cpp
   )
