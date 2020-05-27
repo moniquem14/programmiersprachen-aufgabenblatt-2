@@ -3,9 +3,10 @@
 
 struct Color {
 
-    float r = 0.5f;   
-    float g = 0.5f;
-    float b = 0.5f;
+    //member variables
+    float r = 0.7f;   
+    float g = 0.7f;
+    float b = 0.7f;
 
 
 };
