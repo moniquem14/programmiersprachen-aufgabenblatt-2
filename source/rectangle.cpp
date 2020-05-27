@@ -3,22 +3,20 @@
 #include "window.hpp"
 #include "color.hpp"
 
-Rectangle::Rectangle(Vec2 const& min, Vec2 const& max, Color const& clr) {
-    max_ = max;
-    min_ = min;
-    clr_ = clr;
-}
+Rectangle::Rectangle() :
+    max_{ 600.0f, 400.0f },
+    min_{ 400.0f, 200.0f },
+    color_{ 0.7f, 0.7f, 0.7f },
+    highlight_color_{ 0.1f,0.8f,0.7f } {}
 
-Rectangle::Rectangle(Vec2 const& min, Vec2 const& max) {
-    if(min.x <= max.x && min.y >= max.y){
-    max_ = max;
-    min_ = min;
-    }
-    else{
-    max_ = min;
-    min_ = max;
-    }
-}
+Rectangle::Rectangle(Vec2 const& max, Vec2 const& min) :
+    max_{ max },
+    min_{ min } {}
+
+Rectangle::Rectangle(Vec2 const& max, Vec2 const& min, Color const& rgb) :
+    max_{ max },
+    min_{ min },
+    color_{ rgb } {}
 
 float Rectangle::width() const {
     float er = min_.x - max_.x;
@@ -36,16 +34,12 @@ float Rectangle::height() const {
     else { return er; }
 }
 
-Color Rectangle::color() const {
-    return clr_;
-}
-
-float Rectangle::area() const {
-    return height() * width();
-}
-
 float Rectangle::circumference() const {
     return 2 * (width() + height());
+}
+
+Color Rectangle::color() const {
+    return color_;
 }
 
 Vec2 Rectangle::max() const {
@@ -57,29 +51,31 @@ Vec2 Rectangle::min() const {
 }
 
 void Rectangle::draw(Window const& win) const {
-    win.draw_line(min().x, min().y, min().x, max().y, color().r, color().g, color().b);
-    win.draw_line(min().x, min().y, max().x, min().y, color().r, color().g, color().b);
-    win.draw_line(max().x, min().y, max().x, max().y, color().r, color().g, color().b);
-    win.draw_line(max().x, max().y, min().x, max().y, color().r, color().g, color().b);
+    win.draw_line(min_.x, min_.y, max_.x, min_.y, color_.r, color_.g, color_.b);   // to the right
+    win.draw_line(max_.x, min_.y, max_.x, max_.y, color_.r, color_.g, color_.b);   // up
+    win.draw_line(max_.x, max_.y, min_.x, max_.y, color_.r, color_.g, color_.b);   // to the left
+    win.draw_line(min_.x, max_.y, min_.x, min_.y, color_.r, color_.g, color_.b);   // down
 }
 
-void Rectangle::draw(Window const& win, Color color) const {
-    win.draw_line(min().x, min().y, min().x, max().y, color.r, color.g, color.b);
-    win.draw_line(min().x, min().y, max().x, min().y, color.r, color.g, color.b);
-    win.draw_line(max().x, min().y, max().x, max().y, color.r, color.g, color.b);
-    win.draw_line(max().x, max().y, min().x, max().y, color.r, color.g, color.b);
+void Rectangle::draw(Window const& win, Color rgb, float thickness, bool const& highlight_color) const {
+    if (highlight_color == true) {
+        rgb = highlight_color_;
+    } win.draw_line(min_.x, min_.y, max_.x, min_.y, color_.r, color_.g, color_.b, thickness);
+    win.draw_line(max_.x, min_.y, max_.x, max_.y, color_.r, color_.g, color_.b, thickness);
+    win.draw_line(max_.x, max_.y, min_.x, max_.y, color_.r, color_.g, color_.b, thickness);
+    win.draw_line(min_.x, max_.y, min_.x, min_.y, color_.r, color_.g, color_.b, thickness);
 }
 
-void Rectangle::draw(Window const& win, Color color, float thickness) const {
-    win.draw_line(min().x, min().y, min().x, max().y, color.r, color.g, color.b, thickness);
-    win.draw_line(min().x, min().y, max().x, min().y, color.r, color.g, color.b, thickness);
-    win.draw_line(max().x, min().y, max().x, max().y, color.r, color.g, color.b, thickness);
-    win.draw_line(max().x, max().y, min().x, max().y, color.r, color.g, color.b, thickness);
-}
+bool Rectangle::is_inside(Vec2 const& p) const {
+    if (min_.x <= p.x && p.x <= max_.x && min_.y <= p.y && p.y <= max_.y) {
+        return true;
+    }
+    else {
+        if (min_.x >= p.x && p.x >= max_.x && max_.y >= p.y && p.y >= min_.y) {
+            return true;
+        }
+        else { return false; }
+    }
 
-void Rectangle::draw(Window const& win, float thickness) const {
-    win.draw_line(min().x, min().y, min().x, max().y, color().r, color().g, color().b, thickness);
-    win.draw_line(min().x, min().y, max().x, min().y, color().r, color().g, color().b, thickness);
-    win.draw_line(max().x, min().y, max().x, max().y, color().r, color().g, color().b, thickness);
-    win.draw_line(max().x, max().y, min().x, max().y, color().r, color().g, color().b, thickness);
+
 }
