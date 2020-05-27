@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include "circle.hpp"
 #include "vec2.hpp"
@@ -5,12 +6,19 @@
 #include "color.hpp"
 #include "window.hpp"
 
-Circle::Circle(Vec2 const& ctr, float r, Color const& rgb) :
-    center_ = ctr;
-    radius_ = r;
-    color_ = rgb;
-}
+Circle::Circle() :
+    center_{ 0.0f, 0.0f },
+    radius_{ 1.0f },
+    color_{ 0.5f, 0.5f, 0.5f } {}
 
+Circle::Circle(Vec2 const& ctr, float r) :
+    center_{ ctr },
+    radius_{ r } {}
+
+Circle::Circle(Vec2 const& ctr, float r, Color const& clr) :
+    center_{ ctr },
+    radius_{ r },
+    color_{ clr } {}
 
 // area: pi * r^2
 float Circle::area() const {
@@ -26,8 +34,8 @@ float Circle::radius() const {
     return radius_;
 }
 
-Vec2 Circle::center() const {
-    return center_;
+Vec2 Circle::ctr() const {
+    return ctr_;
 }
 
 void Circle::draw(Window const& win) const {
@@ -66,5 +74,12 @@ void Circle::draw(Window const& win, float thickness) const {
     }
 }
 
+bool Circle::is_inside(Vec2 const& p) {
+    float distance = sqrt(pow((ctr_.x - p.x), 2) + pow((ctr_.y - p.y), 2));
+    if (distance <= radius_) {
+        return true;
+    }
+    else { return false; }
 
 }
+

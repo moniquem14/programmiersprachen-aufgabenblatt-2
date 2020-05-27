@@ -5,7 +5,7 @@
 class Circle {
 public:
 
-    Circle(Vec2 const& ctr, float r, Color const& clr);
+    Circle(Vec2 const& ctr, float r, Color const& rgb);
 
     Circle(Vec2 const& ctr, float r);
 
@@ -15,7 +15,7 @@ public:
 
     Color color() const;
 
-    Vec2 ctr() const;
+    Vec2 center() const;
 
     float radius() const;
 
@@ -23,11 +23,7 @@ public:
 
     void draw(Window const& win) const;
 
-    void draw(Window const& win, Color const& color) const;
-
-    void draw(Window const& win, Color const& color, float thickness) const;
-
-    void draw(Window const& win, float thickness) const;
+    void draw(Window const& win, Color clr, float thickness, bool const& highlight_color) const;
 
 
 
@@ -35,7 +31,7 @@ private:
     Vec2 ctr_;
     float radius_ = 0;
     Color clr_;
-
+    Color highlight_color_;
 };
 
 #endif // CIRCLE_HPP
