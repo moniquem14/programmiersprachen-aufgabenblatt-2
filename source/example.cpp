@@ -1,12 +1,27 @@
+#define _USE_MATH_DEFINES
 #include "window.hpp"
+#include "circle.hpp"
+#include "rectangle.hpp"
 #include <GLFW/glfw3.h>
 #include <utility>
 #include <cmath>
+#include <vector>
 
 
 int main(int argc, char* argv[])
 {
   Window win{std::make_pair(800,800)};
+
+  Color       green{ 0.6, 0.9, 0.6 };
+  Color       blue{ 0.6, 0.9, 1.0 };
+  Color       turquis{ 0.1, 0.8, 0.7 };
+  Circle      cir_1{ {400, 400}, 300, blue };
+  Circle      cir_2{ {400, 400}, 6, blue };
+  Circle      cir_3{ {400, 400}, 280, turquis };
+  Rectangle   left{ {120, 380},{100, 400}, turquis };
+  Rectangle   right{ {580, 380},{620, 400}, turquis };
+  Rectangle   top{ {412, 120},{375, 100}, turquis };
+  Rectangle   bottom{ {412, 580},{375, 630}, turquis };
 
   while (!win.should_close()) {
     if (win.get_key(GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -16,6 +31,32 @@ int main(int argc, char* argv[])
     bool left_pressed = win.get_mouse_button(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
     auto t = win.get_time();
+
+    int   second = int(t) % 60;
+    int   minute = t / 60;
+    int   hour = t / 3600;
+    float segments = (2 * M_PI) / 60; // for analog clock
+
+    std::string time_to_string = "time: " + std::to_string(hour)
+        + "h "
+        + std::to_string(minute)
+        + "min "
+        + std::to_string(second)
+        + "sec";
+
+    // display time since the start 
+    win.draw_text(10, 760, 30, time_to_string);
+
+    // second 
+    win.draw_line(400, 400, 180 * std::cos(segments * (second - 15)) + 400,
+        180 * std::sin(segments * (second - 15)) + 400, 1.0, 0.5, 0, 1.5);
+    // minute 
+    win.draw_line(400, 400, 160 * std::cos(segments * (minute - 15)) + 400,
+        160 * std::sin(segments * (minute - 15)) + 400, 0.6, 0.5, 1.0, 2.8);
+    // hour              
+    win.draw_line(400, 400, 110 * std::cos(segments * 5 * (hour - 15)) + 400,
+        110 * std::sin(segments * 5 * (hour - 15)) + 400, 0.3, 1.0, 0.3, 5.0);
+
 
     float x1 = 400.f + 380.f * std::sin(t);
     float y1 = 400.f + 380.f * std::cos(t);
