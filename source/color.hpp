@@ -4,9 +4,9 @@
 struct Color {
 
     //member variables
-    float r = 0.7f;   
-    float g = 0.7f;
-    float b = 0.7f;
+    float r = 0.63f;   //entspricht 153(W[0,255])
+    float g = 0.63f;
+    float b = 0.63f;
 
 
 };
