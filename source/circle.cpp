@@ -8,7 +8,7 @@
 Circle::Circle() :
     center_{ 0.0f, 0.0f },
     radius_{ 1.0f },
-    color_{ 0.5f, 0.5f, 0.5f },
+    color_{ 0.63f, 0.63f, 0.63f },
     highlight_color_{ 0.1f,0.8f,0.7f } {}
 
 Circle::Circle(Vec2 const& ctr, float r) :

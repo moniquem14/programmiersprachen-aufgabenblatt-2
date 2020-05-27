@@ -6,7 +6,7 @@
 Rectangle::Rectangle() :
     max_{ 600.0f, 400.0f },
     min_{ 400.0f, 200.0f },
-    color_{ 0.7f, 0.7f, 0.7f },
+    color_{ 0.63f, 0.63f, 0.63f },
     highlight_color_{ 0.1f,0.8f,0.7f } {}
 
 Rectangle::Rectangle(Vec2 const& max, Vec2 const& min) :
